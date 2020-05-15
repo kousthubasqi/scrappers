@@ -49,14 +49,18 @@ class MoneyControlScrapper:
             path = '/news/business/stocks/page-' 
         elif section == 'business':
             path = '/news/business/page-'
+        elif section == 'recommendations':
+            path = '/news/tags/recommendations.html/page-'
         else:
             raise ValueError('This section is currently not supported')
 
-        url = self.site + path + str(page)
+        url = self.site + path + str(page) + '/'
         r = requests.get(url)
         soup = BeautifulSoup(r.text, 'html.parser')
 
         news_section = soup.find('ul', {'id': 'cagetory'})
+
+        print(r.text)
 
         news_list = news_section.find_all('li')
         
@@ -82,5 +86,5 @@ class MoneyControlScrapper:
 
 # Example usage
 scrapper = MoneyControlScrapper()
-data = scrapper.get_news('stock', 2)
+data = scrapper.get_news('recommendations', 2)
 print(data)
