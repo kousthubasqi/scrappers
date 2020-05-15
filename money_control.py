@@ -42,10 +42,17 @@ class MoneyControlScrapper:
         
         return result_list
     
-    def get_news(self, page):
-        path = '/news/business/stocks/page-' + str(page)
+    def get_news(self, section, page=1):
+        """Get news titles and links for a given section and page"""
 
-        url = self.site + path
+        if section == 'stock':
+            path = '/news/business/stocks/page-' 
+        elif section == 'business':
+            path = '/news/business/page-'
+        else:
+            raise ValueError('This section is currently not supported')
+
+        url = self.site + path + str(page)
         r = requests.get(url)
         soup = BeautifulSoup(r.text, 'html.parser')
 
@@ -75,5 +82,5 @@ class MoneyControlScrapper:
 
 # Example usage
 scrapper = MoneyControlScrapper()
-data = scrapper.get_news(2)
+data = scrapper.get_news('stock', 2)
 print(data)
