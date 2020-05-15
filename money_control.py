@@ -15,7 +15,7 @@ class MoneyControlScrapper:
 
         r = requests.get(url)
 
-        soup = BeautifulSoup(r.text)
+        soup = BeautifulSoup(r.text, 'html.parser')
         sentiment_list = soup.find_all('li')
 
         result_list = []
@@ -41,8 +41,39 @@ class MoneyControlScrapper:
             result_list.append(result)
         
         return result_list
+    
+    def get_news(self, page):
+        path = '/news/business/stocks/page-' + str(page)
+
+        url = self.site + path
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+
+        news_section = soup.find('ul', {'id': 'cagetory'})
+
+        news_list = news_section.find_all('li')
+        
+        result_list = []
+        for news in news_list:
+            try:
+                date_span = news.find('span')
+                date_time = date_span.text if date_span != None else ''
+                a = news.find('a')
+                title = a['title']
+                link = a['href']
+
+                result = {
+                    'date_time': date_time,
+                    'title': title,
+                    'link': link
+                }
+                result_list.append(result)
+            except Exception:
+                pass
+
+        return result_list
 
 # Example usage
 scrapper = MoneyControlScrapper()
-data = scrapper.get_latest_sentiments()
+data = scrapper.get_news(2)
 print(data)
