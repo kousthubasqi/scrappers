@@ -21,17 +21,13 @@ class InvestingComScrapper:
 
         http = urllib3.PoolManager()
         r = http.request('POST', url, fields=data, headers=self.headers)
-        soup = BeautifulSoup(r.data, features='html5lib')
+        soup = BeautifulSoup(r.data, features='html.parser')
         table = soup.find('tbody').find_all('tr')
         rows = []
         for row in table:
             cells = row.find_all('td')
-            cells = map(lambda r: r.get_text(), cells)
+            cells = map(lambda r: r.text, cells)
+            cells = list(cells)
             rows.append(cells)
         return rows
 
-
-# Example usage
-scrapper = InvestingComScrapper()
-data = scrapper.get_historical_data('995210', '03/04/2020', '03/14/2020')
-print(data)

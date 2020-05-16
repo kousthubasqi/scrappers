@@ -60,8 +60,6 @@ class MoneyControlScrapper:
 
         news_section = soup.find('ul', {'id': 'cagetory'})
 
-        print(r.text)
-
         news_list = news_section.find_all('li')
         
         result_list = []
@@ -83,8 +81,3 @@ class MoneyControlScrapper:
                 pass
 
         return result_list
-
-# Example usage
-scrapper = MoneyControlScrapper()
-data = scrapper.get_news('recommendations', 2)
-print(data)
