@@ -84,6 +84,7 @@ class MoneyControlScrapper:
         return result
     
     def get_community_sentiments_for_all(self):
+        """Get community sentiments for all stocks on moneycontrol"""
         stock_list = self.get_all_stocks()
 
         result = []
@@ -138,3 +139,18 @@ class MoneyControlScrapper:
         return result_list
         
         # An API for mc - https://priceapi-aws.moneycontrol.com/pricefeed/bse/equitycash/NTP
+    
+    def get_content_and_keywords(self):        
+        """Get the latest community sentiments"""
+
+        url = 'https://www.moneycontrol.com/news/business/stocks/aviation-stocks-tumble-on-no-relief-package-suspension-of-flights-till-may-31-5280941.html'
+
+        r = requests.get(url)
+
+        soup = BeautifulSoup(r.text, 'html.parser')
+        article_body = soup.find('div', {'id': 'article-main'}).text
+        key_words = soup.find('meta', {'name':'news_keywords'})['content']
+        key_words = key_words.split(',')
+        print(key_words)
+
+        return {'body': article_body, 'keys':key_words}

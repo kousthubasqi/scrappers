@@ -8,5 +8,5 @@ if __name__ == '__main__':
     # print(repr(data[0]))
 
     moneycontrol_scrapper = MoneyControlScrapper()
-    data = moneycontrol_scrapper.get_community_sentiments_for_all()
+    data = moneycontrol_scrapper.get_content_and_keywords()
     print(data)
