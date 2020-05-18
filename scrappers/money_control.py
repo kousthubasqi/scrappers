@@ -41,7 +41,62 @@ class MoneyControlScrapper:
             result_list.append(result)
         
         return result_list
+
+    def get_all_stocks(self):
+        path = '/india/stockpricequote/'
+        url = self.site + path
+
+        r = requests.get(url)
+
+        soup = BeautifulSoup(r.text, 'html.parser')
+        stock_table = soup.find('table', 'pcq_tbl MT10')
+        stock_links = stock_table.find_all('a')
+
+        result = list(map(lambda x: {'symbol': x['title'], 'link': x['href']}, stock_links))
+
+        return result
+
+    def get_community_sentiments_for_stock(self, url):
+        """Get the community sentiments for a stock
+        Neet to provide URL right now and there isn't a workaround as the path
+        is in weird format like 
+            https://www.moneycontrol.com/india/stockpricequote/paintsvarnishes/asianpaints/AP31
+        Hence use function get_all_stocks to first get the link map for all stocks    
+        """
+
+        r = requests.get(url)
+
+        soup = BeautifulSoup(r.text, 'html.parser')
+        buy_span = soup.find('span', 'bullet_clr buy buy_results')
+        sell_span = soup.find('span', 'bullet_clr sell sell_results')
+        hold_span = soup.find('span', 'bullet_clr hold hold_results')
+
+        buy = buy_span['result']
+        sell = sell_span['result']
+        hold = hold_span['result']
+        
+        result = {
+            'buy': buy,
+            'sell': sell,
+            'hold': hold
+        }
+
+        return result
     
+    def get_community_sentiments_for_all(self):
+        stock_list = self.get_all_stocks()
+
+        result = []
+        for stock in stock_list:
+            try:
+                sentiment = self.get_community_sentiments_for_stock(stock['link'])
+            except:
+                sentiment = 'Sentiment not available'
+            print(stock['symbol'], sentiment)
+            result.append({'symbol': stock['symbol'], 'sentiment': sentiment})
+
+        return result
+
     def get_news(self, section, page=1):
         """Get news titles and links for a given section and page"""
 
@@ -81,3 +136,5 @@ class MoneyControlScrapper:
                 pass
 
         return result_list
+        
+        # An API for mc - https://priceapi-aws.moneycontrol.com/pricefeed/bse/equitycash/NTP
