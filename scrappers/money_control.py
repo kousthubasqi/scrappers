@@ -140,10 +140,8 @@ class MoneyControlScrapper:
         
         # An API for mc - https://priceapi-aws.moneycontrol.com/pricefeed/bse/equitycash/NTP
     
-    def get_content_and_keywords(self):        
+    def get_content_and_keywords(self, url):        
         """Get the latest community sentiments"""
-
-        url = 'https://www.moneycontrol.com/news/business/stocks/aviation-stocks-tumble-on-no-relief-package-suspension-of-flights-till-may-31-5280941.html'
 
         r = requests.get(url)
 

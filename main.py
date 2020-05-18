@@ -8,5 +8,6 @@ if __name__ == '__main__':
     # print(repr(data[0]))
 
     moneycontrol_scrapper = MoneyControlScrapper()
-    data = moneycontrol_scrapper.get_content_and_keywords()
+    url = 'https://www.moneycontrol.com/news/business/stocks/aviation-stocks-tumble-on-no-relief-package-suspension-of-flights-till-may-31-5280941.html'
+    data = moneycontrol_scrapper.get_content_and_keywords(url)
     print(data)
