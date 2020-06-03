@@ -3,6 +3,7 @@ from scrappers.money_control import MoneyControlScrapper
 from scrappers.economictimes import EconomicTimesScrapper
 from scrappers.livemint import LiveMintScrapper
 from scrappers.cnbctv18 import CNBCTV18Scrapper
+from scrappers.ndtv import NDTVScrapper
 
 if __name__ == '__main__':
     # Example usage
@@ -20,3 +21,6 @@ if __name__ == '__main__':
 
     cnbc_scrapper = CNBCTV18Scrapper ()
     print(cnbc_scrapper.get_news(page=600))
+
+    ndtv_scrapper = NDTVScrapper()
+    print(ndtv_scrapper.get_news(page=2))
