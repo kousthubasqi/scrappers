@@ -2,6 +2,7 @@ from scrappers.investingcom import InvestingComScrapper
 from scrappers.money_control import MoneyControlScrapper
 from scrappers.economictimes import EconomicTimesScrapper
 from scrappers.livemint import LiveMintScrapper
+from scrappers.cnbctv18 import CNBCTV18Scrapper
 
 if __name__ == '__main__':
     # Example usage
@@ -14,5 +15,8 @@ if __name__ == '__main__':
     # data = moneycontrol_scrapper.get_content_and_keywords(url)
     # print(data)
 
-    livemint_scrapper = LiveMintScrapper()
-    print(livemint_scrapper.get_news(page=1))
+    # livemint_scrapper = LiveMintScrapper()
+    # print(livemint_scrapper.get_news(page=1))
+
+    cnbc_scrapper = CNBCTV18Scrapper ()
+    print(cnbc_scrapper.get_news(page=600))
