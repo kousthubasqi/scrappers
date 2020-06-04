@@ -141,7 +141,7 @@ class MoneyControlScrapper:
         # An API for mc - https://priceapi-aws.moneycontrol.com/pricefeed/bse/equitycash/NTP
     
     def get_content_and_keywords(self, url):        
-        """Get the latest community sentiments"""
+        """Get the news content and keywords"""
 
         r = requests.get(url)
 

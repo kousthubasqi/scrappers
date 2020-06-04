@@ -36,3 +36,10 @@ class EconomicTimesScrapper:
 
         return results
 
+    def get_news_content(self, url):
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+
+        content_sec = soup.find('div', {'class': 'section1'})
+        content = content_sec.text
+        return content

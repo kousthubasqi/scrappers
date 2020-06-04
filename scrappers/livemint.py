@@ -38,3 +38,16 @@ class LiveMintScrapper:
 
         return results
 
+    def get_news_content(self, url):
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+
+        content_sec = soup.find('div', {'class': 'contentSec'})
+        content = content_sec.text
+        m = re.match(r'([.\s\S]+)Subscribe to newsletters[.\s\S]+', content)
+        if m is not None:
+            return m[1]
+        else:
+            return content
+
+
