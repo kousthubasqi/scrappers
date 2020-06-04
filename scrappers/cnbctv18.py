@@ -35,3 +35,14 @@ class CNBCTV18Scrapper:
 
         return results
 
+    def get_news_content(self, url):
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+
+        content_sec = soup.find('div', {'class': 'arti-right'})
+        content = content_sec.text
+        m = re.match(r'([.\s\S]+)Disclaimer: CNBCTV18[.\s\S]+', content)
+        if m is not None:
+            return m[1]
+        else:
+            return content
