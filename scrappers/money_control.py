@@ -1,6 +1,7 @@
 import requests
 import re
 from bs4 import BeautifulSoup
+import functools 
 
 class MoneyControlScrapper:
     """A scrapper for moneycontrol.com"""
@@ -146,7 +147,13 @@ class MoneyControlScrapper:
         r = requests.get(url)
 
         soup = BeautifulSoup(r.text, 'html.parser')
-        article_body = soup.find('div', {'id': 'article-main'}).text
+        
+        article_body = map(lambda x: x.text, soup.find_all('p'));
+        article_body = functools.reduce(lambda x,y: x + y,article_body)
+        m = re.match(r'([.\s\S]+)Disclaimer: The views[.\s\S]+', article_body)
+        if m is not None:
+            article_body = m[1]
+        
         key_words = soup.find('meta', {'name':'news_keywords'})['content']
         key_words = key_words.split(',')
         print(key_words)

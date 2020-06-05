@@ -12,10 +12,10 @@ if __name__ == '__main__':
     # data = investingcom_scrapper.get_historical_data('995210', '03/04/2020', '03/14/2020')
     # print(repr(data[0]))
 
-    # moneycontrol_scrapper = MoneyControlScrapper()
-    # url = 'https://www.moneycontrol.com/news/business/stocks/aviation-stocks-tumble-on-no-relief-package-suspension-of-flights-till-may-31-5280941.html'
-    # data = moneycontrol_scrapper.get_content_and_keywords(url)
-    # print(data)
+    moneycontrol_scrapper = MoneyControlScrapper()
+    url = 'https://www.moneycontrol.com/news/business/markets/axis-securities-picks-10-stocks-that-could-deliver-10-50-returns-in-a-year-5357911.html'
+    data = moneycontrol_scrapper.get_content_and_keywords(url)
+    print(data)
 
     # et = EconomicTimesScrapper()
     # # print(et.get_news(page=2))
@@ -26,8 +26,8 @@ if __name__ == '__main__':
     # print(livemint_scrapper.get_news(page=1))
     # livemint_scrapper.get_news_content('https://www.livemint.com/companies/people/ratan-tata-expressed-shock-over-elephant-killing-in-kerala-says-justice-need-to-prevail-11591207995838.html')
 
-    cnbc_scrapper = CNBCTV18Scrapper ()
-    print(cnbc_scrapper.get_news_content(cnbc_scrapper.get_news(page=300)[5]['link']))
+    # cnbc_scrapper = CNBCTV18Scrapper ()
+    # print(cnbc_scrapper.get_news_content(cnbc_scrapper.get_news(page=300)[5]['link']))
 
     # ndtv_scrapper = NDTVScrapper()
     # # print(ndtv_scrapper.get_news(page=2))
